@@ -1,70 +1,45 @@
+const https = require('https');
 const http = require('http');
+const express = require('express');
+const app = express();
 const fs = require('fs');
 
-const domain = '' //  domain name here
+// Variable declaration
+const domain = 'localhost';  // Replace with domain name as needed
 const files = fs.readdirSync('./images');
-
-const server = http.createServer((req, res) => {
-    req.url = req.url.toLowerCase();
+const endpointlist = ['/api', '/api/image'];
 
 
-    if (req.url === '/') {
-        res.writeHead(200, {'Content-type': 'text/html'});
-        res.end('<h1>Click the button for a random image</h1><br><a href="/image">click me</a>');
-    }
+// Middleware declaration
+app.use('/images', express.static('images'));
 
-    else if (req.url.startsWith('/api/image')) {
-        let filenum = Math.floor(Math.random()*files.length);
-        res.writeHead(200, {'Content-type': 'application/json'});
-        res.end(`{"url":"${domain}/images/${files[filenum]}"}`);
-    }
 
-    else if (req.url.startsWith('/image')) {
-        let filenum = Math.floor(Math.random()*files.length);
-        console.log(files[filenum]);
-        fs.readFile(`./images/${files[filenum]}`, (err, pic) => {
-            res.writeHead(200, {'Content-type': 'image/jpg'});
-            res.end(pic);
-        });
-    }
+// Functions
+// Gets random image name
+function randomimg() {
+    let img = Math.floor(Math.random()*files.length);
+    img = files[img];
+    return img
+}
 
-    else if (req.url.startsWith('/images/')) {
-        
-        fs.readFile(`.${req.url}`, (err, data) => {
-            type = getTypeFromLink(req.url);
-            res.writeHead(200, {'Content-type': `image/${type}`});
-            res.end(data);
-        });
-    }
 
-    else {
-        res.writeHead(200, {'Content-type': 'text/html'});
-        res.end('<h1>NO!</h1>');
-    }
+// APPLICATION BELOW THIS COMMNENT
+// API
+app.get('/api', (req, res) => {
+    res.send({
+        endpoints: endpointlist,
+    });
+});
+
+app.get('/api/image', (req, res) => {
+    res.send({url: `http://${domain}/images/${randomimg()}`});
+});
+
+app.get('*', (req, res) => {
+    res.sendFile('Not found');
 });
 
 
-function getTypeFromLink(link) {
-    let type = '';
-    car = link.split('');
-    for (let i = car.length; i > 0; i--) {
-        if (car[i] === '.') {
-            i++;
-            if (car[car.length-1] === '/') {
-                while (car[i] !== '/') {
-                    type += car[i]
-                    i++
-                }
-            } else {
-                while (i !== car.length) {
-                    type += car[i]
-                    i++
-                }
-            }
-            break;
-        }
-    }
-    return type;
-}
 
-server.listen(80);
+
+app.listen(80);
