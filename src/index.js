@@ -1,5 +1,3 @@
-const https = require('https');
-const http = require('http');
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -35,11 +33,21 @@ app.get('/api/image', (req, res) => {
     res.send({url: `http://${domain}/images/${randomimg()}`});
 });
 
-app.get('*', (req, res) => {
-    res.sendFile('Not found');
+
+// Front End
+app.get('/', (req, res) => {
+    res.sendFile(`${__dirname}/index.html`);
+});
+
+app.get('/image', (req, res) => {
+    res.sendFile(`${__dirname}/images/${randomimg()}`);
 });
 
 
 
+
+app.get('*', (req, res) => {
+    res.send('Not found');
+});
 
 app.listen(80);
