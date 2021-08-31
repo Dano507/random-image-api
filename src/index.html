@@ -28,5 +28,9 @@ body {
     <div class="main">
         <a href="/image" class="btn">Random Image</a>
     </div>
+    <form method="POST" action="/api/upload" enctype="multipart/form-data">
+        <input type="file" name="filename">
+        <input type="submit">
+    </form>
 </body>
 </html>

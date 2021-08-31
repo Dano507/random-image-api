@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
+const upload = require('express-fileupload');
 const fs = require('fs');
 
 // Variable declaration
 const domain = 'localhost';  // Replace with domain name as needed
-const files = fs.readdirSync('./images');
-const endpointlist = ['/api', '/api/image'];
+var files = fs.readdirSync('./images');
+const endpointlist = ['/api', '/api/image', '/api/upload'];
 
 
 // Middleware declaration
 app.use('/images', express.static('images'));
+app.use(upload());
 
 
 // Functions
@@ -19,6 +21,12 @@ function randomimg() {
     img = files[img];
     return img
 }
+
+function refreshFiles() {
+    files = fs.readdirSync('./images');
+}
+
+
 
 
 // APPLICATION BELOW THIS COMMNENT
@@ -31,6 +39,16 @@ app.get('/api', (req, res) => {
 
 app.get('/api/image', (req, res) => {
     res.send({url: `http://${domain}/images/${randomimg()}`});
+});
+
+app.post('/api/upload', (req, res) => {
+    if (req.files) {
+        req.files.filename.mv(`${__dirname}/images/${files.length+1}.png`);
+        res.status(200).send("File received!");
+    } else {
+        res.status(400).send("yeh nah not working matey");
+    }
+    refreshFiles();
 });
 
 
