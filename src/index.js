@@ -7,6 +7,7 @@ const fs = require('fs');
 const domain = 'localhost';  // Replace with domain name as needed
 var files = fs.readdirSync('./images');
 const endpointlist = ['/api', '/api/image', '/api/upload'];
+const webPageFile = __dirname + '/pages';
 
 
 // Middleware declaration
@@ -46,7 +47,7 @@ app.post('/api/upload', (req, res) => {
         req.files.filename.mv(`${__dirname}/images/${files.length+1}.png`);
         res.status(200).send("File received!");
     } else {
-        res.status(400).send("yeh nah not working matey");
+        res.status(400).send("Error");
     }
     refreshFiles();
 });
@@ -54,11 +55,18 @@ app.post('/api/upload', (req, res) => {
 
 // Front End
 app.get('/', (req, res) => {
-    res.sendFile(`${__dirname}/index.html`);
+    res.sendFile(`${webPageFile}/index.html`);
+});
+app.get('/*style.css', (req, res) => {
+    res.sendFile(`${webPageFile}/style.css`);
 });
 
+
 app.get('/image', (req, res) => {
-    res.sendFile(`${__dirname}/images/${randomimg()}`);
+    res.sendFile(`${webPageFile}/upload/${randomimg()}`);
+});
+app.get('/upload', (req, res) => {
+    res.sendFile(`${webPageFile}/upload/upload.html`);
 });
 
 

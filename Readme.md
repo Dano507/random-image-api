@@ -1,6 +1,6 @@
 # to-do
 + Write front end
-+ Add "upload" feature
++ ~~Add "upload" feature~~
 + potentially a password-protected control panel to delete images
 
 # Notes

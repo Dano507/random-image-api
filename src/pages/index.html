@@ -1,36 +1,17 @@
 <!DOCTYPE html>
-<style>
-body {
-    margin: 0;
-    font-family: Calibri, sans-serif;
-}
-
-.title {
-    display: block;
-    text-align: center;
-}
-
-.main {
-    text-align: center;
-}
-</style>
-
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
     <h1 class="title">Index page</h1>
     <div class="main">
         <a href="/image" class="btn">Random Image</a>
+        <a href="/upload" class="btn">Upload image</a>
     </div>
-    <form method="POST" action="/api/upload" enctype="multipart/form-data">
-        <input type="file" name="filename">
-        <input type="submit">
-    </form>
 </body>
 </html>
