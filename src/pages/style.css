@@ -39,7 +39,7 @@ form {
   user-select: none;
 }
 form div {
-  margin: 2px;
+  margin: 4px 0;
   font-size: 14px;
 }
 form a {
