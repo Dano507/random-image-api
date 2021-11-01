@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const upload = require('express-fileupload');
+const bc = require('bcrypt');
 const fs = require('fs');
 
 // Variable declaration
@@ -12,6 +13,7 @@ const webPageFile = __dirname + '/pages';
 
 // Middleware declaration
 app.use('/images', express.static('images'));
+app.use(express.json());
 app.use(upload());
 
 
@@ -44,11 +46,14 @@ app.get('/api/image', (req, res) => {
 
 app.post('/api/upload', (req, res) => {
     if (req.files) {
-        req.files.filename.mv(`${__dirname}/images/${files.length+1}.png`);
-        res.status(200).send("File received!");
-    } else {
-        res.status(400).send("Error");
-    }
+        // TODO: encrypt password
+        if (req.body.pw === "donthackme") {
+            req.files.filename.mv(`${__dirname}/images/${files.length+1}.png`);
+            res.status(200).send("File received!");
+        } 
+        else{ res.status(400).send("ERROR!") }
+    } 
+    else { res.status(400).send("Error") }
     refreshFiles();
 });
 
@@ -63,10 +68,10 @@ app.get('/*style.css', (req, res) => {
 
 
 app.get('/image', (req, res) => {
-    res.sendFile(`${webPageFile}/upload/${randomimg()}`);
+    res.sendFile(`${__dirname}/images/${randomimg()}`);
 });
 app.get('/upload', (req, res) => {
-    res.sendFile(`${webPageFile}/upload/upload.html`);
+    res.sendFile(`${webPageFile}/upload/index.html`);
 });
 
 

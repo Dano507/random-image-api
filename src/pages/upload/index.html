@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
   <title>Document</title>
 </head>
 
@@ -12,6 +12,7 @@
     <form method="POST" action="/api/upload" enctype="multipart/form-data">
       <input type="file" name="filename" id="fileUpload" hidden>
       <div> <a id="selectFile" href="#">Browse...</a><span id="fileName"></span> </div>
+      <input type="password" name=pw>
       <input type="submit">
     </form>
   </div>
@@ -20,17 +21,20 @@
 
 
 <script>
-  selectFile = document.getElementById("selectFile");
   ogFile = document.getElementById("fileUpload")
 
   selectFile.onclick = () => { ogFile.click() }
 
   fileUpload.onchange = e => { 
-    let newval = e.originalTarget.value.match(/([^\\]*$)/g);
-    console.log(newval)
-    fileName.innerHTML = newval[0];
+    //let hasSupportedMimeType = e.originalTarget.value.test(/([^\\/]+)\.(?=(png))([^\\/]+)/g);
+    let rgx = /([^\\/]+)\.(?=(png|jpg|jpeg|webp))([^\\/]+)/g
+    let hasSupportedMimeType = rgx.test(e.originalTarget.value);
+    let newVal = (hasSupportedMimeType ? 
+      e.originalTarget.value.match(rgx)[0] : "Error, unsupported Filetype");
+
+    console.log(hasSupportedMimeType);
+    fileName.innerHTML = newVal;
   }
   
   console.log(a)
-  //selectFile.value;
 </script>
