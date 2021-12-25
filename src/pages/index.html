@@ -24,6 +24,6 @@
     fetch(`${window.location.origin}/api/image/recent/1`)
         .then(i=>i.json())
         .then(o=>{
-            recentImage.src = o.url;
+            recentImage.src = o.url[0];
         })
 </script>

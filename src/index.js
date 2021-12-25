@@ -12,7 +12,7 @@ const webPageFile = __dirname + '/pages';
 
 
 // Middleware declaration
-app.use('/images', express.static('images'));
+app.use('/images', express.static(`${__dirname}/images`));
 app.use(express.json());
 app.use(upload());
 
@@ -54,7 +54,7 @@ app.get('/api/image/recent/:id', (req, res) => {
         }
 
         res.send({
-            url: resbody
+            url: resbody,
         });
     }
     else { res.send(`${req.params.id} is out of range`) }
