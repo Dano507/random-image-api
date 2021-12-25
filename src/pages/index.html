@@ -13,5 +13,17 @@
         <a href="/image" class="btn">Random Image</a>
         <a href="/upload" class="btn">Upload image</a>
     </div>
+    <div>
+        <p>Most recent image:</p>
+        <img src="" alt="Recent image" id="recentImage" height="400px">
+    </div>
 </body>
 </html>
+
+<script>
+    fetch(`${window.location.origin}/api/image/recent/1`)
+        .then(i=>i.json())
+        .then(o=>{
+            recentImage.src = o.url;
+        })
+</script>

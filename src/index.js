@@ -6,8 +6,8 @@ const fs = require('fs');
 
 // Variable declaration
 const domain = 'localhost';  // Replace with domain name as needed
-var files = fs.readdirSync('./images');
-const endpointlist = ['/api', '/api/image', '/api/upload'];
+var files = fs.readdirSync(`${__dirname}/images`);
+const endpointlist = ['/api', '/api/image', '/api/upload', "/api/image/recent/:id"];
 const webPageFile = __dirname + '/pages';
 
 
@@ -44,10 +44,26 @@ app.get('/api/image', (req, res) => {
     res.send({url: `http://${domain}/images/${randomimg()}`});
 });
 
+app.get('/api/image/recent/:id', (req, res) => {
+    if (files[req.params.id] != undefined) {
+        let id = parseInt(req.params.id);
+        let resbody = []
+        for (let i=0; i<id; i++) {
+            let o = files.length - i - 1;
+            resbody.push(`http://${domain}/images/${files[o]}`);
+        }
+
+        res.send({
+            url: resbody
+        });
+    }
+    else { res.send(`${req.params.id} is out of range`) }
+});
+
 app.post('/api/upload', (req, res) => {
     if (req.files) {
         // TODO: encrypt password
-        if (req.body.pw === "donthackme") {
+        if (/*req.body.pw === "donthackme"*/ true) {
             req.files.filename.mv(`${__dirname}/images/${files.length+1}.png`);
             res.status(200).send("File received!");
         } 
