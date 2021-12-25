@@ -40,9 +40,11 @@ app.get('/api', (req, res) => {
     });
 });
 
+
 app.get('/api/image', (req, res) => {
     res.send({url: `http://${domain}/images/${randomimg()}`});
 });
+
 
 app.get('/api/image/recent/:id', (req, res) => {
     if (files[req.params.id] != undefined) {
@@ -60,6 +62,7 @@ app.get('/api/image/recent/:id', (req, res) => {
     else { res.send(`${req.params.id} is out of range`) }
 });
 
+
 app.post('/api/upload', (req, res) => {
     if (req.files) {
         // TODO: encrypt password
@@ -72,6 +75,7 @@ app.post('/api/upload', (req, res) => {
     else { res.status(400).send("Error") }
     refreshFiles();
 });
+
 
 
 // Front End
@@ -93,8 +97,9 @@ app.get('/upload', (req, res) => {
 
 
 
+// Handle unrecognised endpoints
 app.get('*', (req, res) => {
     res.send('Not found');
 });
 
-app.listen(80);
+app.listen(80);  // Start app on port 80

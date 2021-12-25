@@ -1,11 +1,11 @@
 # to-do
-+ Write front end
-+ ~~Add "upload" feature~~
-  + ~~potentially a password-protected control panel to delete images~~
-  + Add Encryption to password protection
-+ ~~Update "webPageFile", and related variables~~
+- [ ] Update front end
+- [x] Add "upload" feature
+  - [x] potentially a password-protected control panel to delete images
+  - [ ] Add Encryption to password protection with BCrypt
+- [x] Update "webPageFile", and related variables
 
 
 # Notes
-+ The main files for this application are in the ./src directory
-+ The server will serve random images from the "images" folder
+- The main files for this application are in the ./src directory
+- The server will serve random images from the "images" folder
