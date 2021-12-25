@@ -7,10 +7,37 @@ body {
   font-family: Calibri, sans-serif;
 }
 
-.title {
-  display: block;
-  text-align: center;
+
+
+.nav-bar {
+  --nav-bar-margin: 1.4rem;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: white;
+  background-color: black;
 }
+
+.title-text {
+  display: inline-block;
+  margin: var(--nav-bar-margin);
+}
+
+nav {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--nav-bar-margin);
+}
+nav ul {
+  margin: none;
+}
+nav li {
+  display: inline;
+  list-style: none;
+}
+
+
 
 .main {
   text-align: center;
@@ -21,8 +48,11 @@ body {
   border-radius: 10px;
   text-decoration: none;
   color: black;
-  background-color: #aaa;
+  background-color: white;
 }
+
+
+
 
 .form {
   display: flex;
