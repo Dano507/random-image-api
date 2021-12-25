@@ -1,5 +1,5 @@
 # to-do
-- [ ] Update front end
+- [x] Update front end
 - [x] Add "upload" feature
   - [x] potentially a password-protected control panel to delete images
   - [ ] Add Encryption to password protection with BCrypt
