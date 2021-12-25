@@ -7,8 +7,8 @@ const fs = require('fs');
 // Variable declaration
 const domain = 'localhost';  // Replace with domain name as needed
 var files = fs.readdirSync(`${__dirname}/images`);
-const endpointlist = ['/api', '/api/image', '/api/upload', "/api/image/recent/:id"];
-const webPageFile = __dirname + '/pages';
+const endPointList = ['/api', '/api/image', '/api/upload', "/api/image/recent/:id"];
+const webPageDir = __dirname + '/pages';
 
 
 // Middleware declaration
@@ -36,7 +36,7 @@ function refreshFiles() {
 // API
 app.get('/api', (req, res) => {
     res.send({
-        endpoints: endpointlist,
+        endpoints: endPointList,
     });
 });
 
@@ -76,10 +76,10 @@ app.post('/api/upload', (req, res) => {
 
 // Front End
 app.get('/', (req, res) => {
-    res.sendFile(`${webPageFile}/index.html`);
+    res.sendFile(`${webPageDir}/index.html`);
 });
 app.get('/*style.css', (req, res) => {
-    res.sendFile(`${webPageFile}/style.css`);
+    res.sendFile(`${webPageDir}/style.css`);
 });
 
 
@@ -87,7 +87,7 @@ app.get('/image', (req, res) => {
     res.sendFile(`${__dirname}/images/${randomimg()}`);
 });
 app.get('/upload', (req, res) => {
-    res.sendFile(`${webPageFile}/upload/index.html`);
+    res.sendFile(`${webPageDir}/upload/index.html`);
 });
 
 

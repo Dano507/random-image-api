@@ -3,7 +3,7 @@
 + ~~Add "upload" feature~~
   + ~~potentially a password-protected control panel to delete images~~
   + Add Encryption to password protection
-+ Update "webPageFile", and related variables
++ ~~Update "webPageFile", and related variables~~
 
 
 # Notes
